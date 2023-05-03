@@ -1,0 +1,23 @@
+  
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.content{
+    padding: 50px;
+    background-color:  #1d1c1c ;
+    color: #dddd;
+}
+
+.matriz{
+    margin: auto;
+    max-width: 1250px;
+    max-height: 300px;
+    margin-top: 20px;
+    color:aqua;
+    overflow: scroll;
+}
+@media screen and (max-width: 364px){
+    h4{
+        font-size: 1.7em;
+    }
+}

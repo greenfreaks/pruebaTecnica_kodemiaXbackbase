@@ -1,0 +1,143 @@
+LINK PARA VER EL PROYECTO FUNCIONANDO:
+https://kodemiaxbackbase.000webhostapp.com/
+
+LINK DEL REPOSITORIO EN GITHUB:
+https://github.com/greenfreaks/pruebaTecnicaKodemiaBackbase/tree/master
+
+CÓDIGO HTML:
+<?php error_reporting(E_ERROR); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodemia & Backbase ♥</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet"> 
+
+    <!-- SweetAlert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- MAERIALIZE -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+    
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <section class="content">
+        <form method= "POST">
+            <div class="form">
+                <h4 style="color: aqua;">Hola equipo de Kodemia </br>& Backbase</h4>
+                <h6>Soy Mario Sandoval Velázquez y esta es mi prueba técnica :)</h6>
+            
+                <b>Ingresa el número de dimensiones que deseas que tenga tu matriz.</b>
+                <input style="color: #dddd" type="number" name="dimension" class="dimension" value="<?php echo $_POST['dimension'];?>"> <br>
+                <button type="submit" class="btn btn-primary" name="submit">¡Matriz!</button>
+            </div>
+            <div class="center matriz">
+                <?php include "operacion.php"?>
+            </div> <br>
+            <div class="center" style="color:aqua">
+                <?php
+                echo "Suma de la diagonal ascendente: ". $diagonalAscendente. "</br>";
+                echo "Suma de la diagonal descendente :". $diagonalDescendente;
+                $resultado = $diagonalAscendente + $diagonalDescendente;
+                echo "</br>";
+
+                echo "El resultado final es: ". $resultado;
+                ?> 
+            </div>
+        </form>           
+    </section>
+    
+</body>
+</html>
+
+CÓDIGO PHP:
+<?php
+error_reporting(E_ERROR);
+if(isset($_POST['submit'])){
+    $n_filas = ($_POST['dimension']);
+    $n_columnas = ($_POST['dimension']);
+    if($n_filas == "" OR $n_columnas==""){?>
+        <script>
+            Swal.fire(
+                '¡Campo vacío!',
+                'Ingresa el número de dimensiones que deseas que tenga tu matriz',
+                'error'
+            );
+        </script>
+    <?php
+    }elseif($n_filas <=1 OR $n_columnas <=1){?>
+        <script>
+            Swal.fire(
+                '¡Número inválido!',
+                'Ingresa un valor mayor a "1"',
+                'error'
+            );
+        </script>
+    <?php   
+    }else{
+
+    for($i=0; $i < $n_filas; $i ++){
+        for($j=0; $j < $n_columnas; $j ++){
+            $matriz[$i][$j]=rand(0,9);
+            echo $matriz[$i][$j].  str_repeat('&nbsp;', 10); // adds 5 spaces
+            ;
+        }
+        // echo "<div class='divider center'></div>";
+        echo "</br>"."<hr>";
+        
+    }
+
+    $diagonalAscendente = 0;
+    $diagonalDescendente = 0;
+
+    for ($i = 0, $s = count($matriz) - 1; $s >= $i; $i++) {
+        $diagonalDescendente += $matriz[$i][$i];
+        $diagonalAscendente += $matriz[$i][$s - $i];
+    }
+    
+    
+}
+}
+
+?>
+
+CÓDIGO CSS:
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.content{
+    padding: 50px;
+    background-color:  #1d1c1c ;
+    color: #dddd;
+}
+
+.matriz{
+    margin: auto;
+    max-width: 1250px;
+    max-height: 300px;
+    margin-top: 20px;
+    color:aqua;
+    overflow: scroll;
+}
+@media screen and (max-width: 364px){
+    h4{
+        font-size: 1.7em;
+    }
+}
